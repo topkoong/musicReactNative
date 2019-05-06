@@ -91,7 +91,7 @@ export default class AlbumDetailScreen extends React.Component {
 					<Divider style={{ backgroundColor: 'black' }} />
 					{/* <View>{this.renderTracks()}</View> */}
 					<List containerStyle={{ paddingTop: 0, marginTop: 0 }}>
-						{this.renderTracks(album)}
+						{this.renderTracks()}
 					</List>
 				</ScrollView>
 			);
