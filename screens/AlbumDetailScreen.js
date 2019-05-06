@@ -59,9 +59,9 @@ export default class AlbumDetailScreen extends React.Component {
 				);
 			});
 		}
-    }
-    
-    keyExtractor = (item, index) => index.toString()
+	}
+
+	keyExtractor = (item, index) => index.toString();
 
 	render() {
 		const album = this.props.navigation.getParam('album', {});
@@ -89,9 +89,10 @@ export default class AlbumDetailScreen extends React.Component {
 						</View>
 					</View>
 					<Divider style={{ backgroundColor: 'black' }} />
-					<View>
-						{this.renderTracks()}
-                    </View>
+					{/* <View>{this.renderTracks()}</View> */}
+					<List containerStyle={{ paddingTop: 0, marginTop: 0 }}>
+						{this.renderTracks(album)}
+					</List>
 				</ScrollView>
 			);
 		} else {
