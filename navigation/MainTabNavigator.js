@@ -8,11 +8,14 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AlbumsScreen from '../screens/AlbumsScreen';
 import AlbumDetailScreen from '../screens/AlbumDetailScreen';
+import StorageScreen from '../screens/StorageScreen';
+import FavoriteScreen from '../screens/FavoriteScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Albums: AlbumsScreen,
-  AlbumDetail: AlbumDetailScreen
+  AlbumDetail: AlbumDetailScreen,
+  Favorite: FavoriteScreen
 });
 
 HomeStack.navigationOptions = {
@@ -30,8 +33,9 @@ HomeStack.navigationOptions = {
 };
 
 const LinksStack = createStackNavigator({
-  Links: LinksScreen,
-});
+  Links: LinksScreen
+})
+
 
 LinksStack.navigationOptions = {
   tabBarLabel: 'Links',
@@ -39,12 +43,15 @@ LinksStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+
     />
   ),
 };
 
+
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
+  Storage: StorageScreen
 });
 
 SettingsStack.navigationOptions = {

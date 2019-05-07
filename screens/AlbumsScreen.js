@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import CardList from '../components/CardList';
 import SearchText from '../components/SearchText';
@@ -26,7 +26,42 @@ export default class AlbumsScreen extends React.Component {
 			.searchTracks(artist)
 			.then(albums => this.setState({ albums, isFetching: false }))
 			.catch(err => this.setState({ albums: [], isFetching: false }));
-	}
+    }
+    
+    async saveAlbumToFavorite(album) {
+        const favoriteAlbums = await actions.retrieveData('favoriteAlbums') || {};
+        if(favoriteAlbums[album.id]) {
+            // Display some message to warn user
+            Alert.alert(
+				'Cannot add Album!',
+				`Album is already in Favorites!`,
+				[
+					{
+						text: 'Continue',
+						onPress: () => console.log('OK Pressed')
+					}
+				],
+				{ cancelable: false }
+			);
+            return false;
+        }
+
+        favoriteAlbums[album.id] = album;
+        const success = await actions.storeData('favoriteAlbums', favoriteAlbums);
+        if(success) {
+            Alert.alert(
+				'Album Added!',
+				`Album ${album.title} from ${this.state.artist} was added to Favorites!`,
+				[
+					{
+						text: 'Continue',
+						onPress: () => console.log('OK Pressed')
+					}
+				],
+				{ cancelable: false }
+			);
+        }
+    }
 
 	renderBottomNavigation(album) {
 		const { artist } = this.state;
@@ -49,7 +84,7 @@ export default class AlbumsScreen extends React.Component {
 					size={30}
 				/>
 				<Icon
-					onPress={() => {}}
+					onPress={() => {this.saveAlbumToFavorite(album)}}
 					raised
 					name="thumbs-up"
 					type="font-awesome"
